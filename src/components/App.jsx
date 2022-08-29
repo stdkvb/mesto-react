@@ -96,18 +96,6 @@ function App(props) {
           buttonText="Да"
           onClose={closeAllPopups}
         />
-
-        <template className="card-template">
-          <li className="card">
-            <img className="card__img" alt="картинка"/>
-            <h2 className="card__title"></h2>
-            <div className="card__like-section">
-              <button className="card__like-button" type="button"></button>
-              <p className="card__like-counter">0</p>
-            </div>
-            <button className="card__delete-button" type="button"></button>
-          </li>
-        </template>
      </body>
   );
 }
