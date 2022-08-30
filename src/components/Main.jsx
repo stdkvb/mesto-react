@@ -1,5 +1,5 @@
 import React from "react";
-import api from "../utils/Api";
+import api from "../utils/api";
 import Card from "./Card";
 
 function Main (props) {
@@ -20,7 +20,7 @@ function Main (props) {
         .then((cardsData) => {
           setCards(cardsData);
         })
-  });
+  }, []);
 
   return (
       <main className="content">
@@ -40,7 +40,7 @@ function Main (props) {
         <section className="cards">
           <ul className="cards__list">
             {cards.map((card) =>
-              <Card key={card._id} card={card} />
+              <Card key={card._id} card={card} onCardClick={props.onCardClick} />
               )
             }
           </ul>
