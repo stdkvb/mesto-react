@@ -20,13 +20,14 @@ function Main (props) {
         .then((cardsData) => {
           setCards(cardsData);
         })
+        .catch(err => console.log(err));
   }, []);
 
   return (
       <main className="content">
         <section className="profile">
           <div className="profile__avatar">
-            <img className="profile__avatar-image" src={userAvatar} alt="ава"/>
+            <img className="profile__avatar-image" src={userAvatar} alt={`аватар пользователя ${userName}`}/>
             <button className="profile__avatar-edit-button" type="button" onClick={ props.onEditAvatar }></button>
           </div>
           <div className="profile__info">

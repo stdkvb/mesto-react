@@ -11,7 +11,7 @@ function App(props) {
   const[isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
   const[isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
   const[isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
-  const[selectedCard, setSelectedCard] = React.useState('');
+  const[selectedCard, setSelectedCard] = React.useState({name: '', link: ''});
   
   
   function handleEditAvatarClick() {
@@ -34,11 +34,11 @@ function App(props) {
     setEditAvatarPopupOpen(false);
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
-    setSelectedCard('');
+    setSelectedCard({name: '', link: ''});
   };
 
   return (
-    <body class="page">
+    <>
         <Header />
         <Main
           onEditAvatar={handleEditAvatarClick}
@@ -68,11 +68,11 @@ function App(props) {
           buttonText="Сохранить"
           formSection={
             <><section className="popup__form-section">
-                <input className="popup__input profile-name" id="profile-name" type="text" name="name" placeholder="Имя" required minlength="2" maxlength="40" />
+                <input className="popup__input profile-name" id="profile-name" type="text" name="name" placeholder="Имя" required /*minlength="2" maxlength="40"*/ />
                 <span className="popup__input-error profile-name-error"></span>
               </section>
               <section className="popup__form-section">
-                <input className="popup__input profile-job" id="profile-job" type="text" name="about" placeholder="О себе" required minlength="2" maxlength="200" />
+                <input className="popup__input profile-job" id="profile-job" type="text" name="about" placeholder="О себе" required /*minlength="2" maxlength="200"*/ />
                 <span className="popup__input-error profile-job-error"></span>
               </section></>
           }
@@ -86,7 +86,7 @@ function App(props) {
           buttonText="Создать"
           formSection={
             <><section className="popup__form-section">
-                <input className="popup__input" id="place-name" type="text" name="name" placeholder="Название" required minlength="2" maxlength="30"/>
+                <input className="popup__input" id="place-name" type="text" name="name" placeholder="Название" required /*minlength="2" maxlength="30"*//>
                 <span className="popup__input-error place-name-error"></span>
               </section>
               <section className="popup__form-section">
@@ -109,7 +109,7 @@ function App(props) {
           card={selectedCard}
           onClose={closeAllPopups}
         />
-     </body>
+    </>
   );
 }
 
