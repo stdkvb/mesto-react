@@ -5,8 +5,6 @@ import Card from "./Card";
 
 function Main (props) {
   const currentUser = React.useContext(CurrentUserContext);
-
-
   const[cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
@@ -16,6 +14,14 @@ function Main (props) {
         })
         .catch(err => console.log(err));
   }, []);
+
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    api.changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      });
+  };
 
   return (
       <main className="content">
@@ -35,7 +41,7 @@ function Main (props) {
         <section className="cards">
           <ul className="cards__list">
             {cards.map((card) =>
-              <Card key={card._id} card={card} onCardClick={props.onCardClick} />
+              <Card key={card._id} card={card} user={currentUser} onCardClick={props.onCardClick} onCardLike={handleCardLike} />
               )
             }
           </ul>
