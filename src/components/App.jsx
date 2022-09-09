@@ -8,6 +8,7 @@ import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
 
 function App(props) {
 
@@ -19,11 +20,11 @@ function App(props) {
   
   React.useEffect(() => {
     api.getUserInfo()
-      .then((currentUser) => {
-        setCurrentUser(currentUser);
+      .then((userInfo) => {
+        setCurrentUser(userInfo);
       })
       .catch(err => console.log(err));
-}, []);
+  }, []);
 
   function handleEditAvatarClick() {
     setEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -57,6 +58,15 @@ function App(props) {
       .catch(err => console.log(err));
   }
 
+  function handleUpdateAvatar({avatar}) {
+    api.editAvatar({avatar})
+      .then((...currentUser) => {
+        setCurrentUser({...currentUser, avatar});
+        setEditAvatarPopupOpen(false);
+    })
+    .catch(err => console.log(err));
+  }
+
   return (
     <>
       <CurrentUserContext.Provider value={currentUser}>
@@ -69,20 +79,7 @@ function App(props) {
         />
         <Footer />
         
-        <PopupWithForm
-          name="edit-avatar"
-          title="Обновить аватар"
-          buttonText="Сохранить"
-          formSection={
-            <section className="popup__form-section">
-              <input className="popup__input" id="avatar-url" type="url" name="avatar" placeholder="Ссылка на аватар" required/>
-              <span className="popup__input-error avatar-url-error"></span>
-            </section>
-          }
-          isOpen={isEditAvatarPopupOpen}          
-          onClose={closeAllPopups}
-        />
-        
+        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar}/>      
         <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />       
 
         <PopupWithForm
