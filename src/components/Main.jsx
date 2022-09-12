@@ -22,7 +22,7 @@ function Main (props) {
 
         <section className="cards">
           <ul className="cards__list">
-            {props.cards.map((card) =>
+            {props.cards.map((card) => (
               <Card
                 key={card._id}
                 card={card}
@@ -31,7 +31,7 @@ function Main (props) {
                 onCardLike={props.onCardLike}
                 onCardDelete={props.onCardDelete}/>
               )
-            }
+            )}
           </ul>
         </section>
       </main>

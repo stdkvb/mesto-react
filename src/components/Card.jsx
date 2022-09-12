@@ -1,6 +1,10 @@
+import React from "react";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
+
 function Card(props) {
-    const isOwn = props.card.owner._id === props.user._id;
-    const isLiked = props.card.likes.some(i => i._id === props.user._id);
+    const currentUser = React.useContext(CurrentUserContext);
+    const isOwn = props.card.owner._id === currentUser._id;
+    const isLiked = props.card.likes.some(like => like._id === currentUser._id);
 
     const handleClick = () => {
         props.onCardClick(props.card);

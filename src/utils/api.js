@@ -15,16 +15,20 @@ class Api {
         return Promise.reject(`Ошибка: ${res.status}`)
     }
 
+    _request(url, options) {
+      return fetch(url, options)
+        .then(this._handleError)
+    }
+
     getUserInfo() {
-        return fetch(`${this._baseUrl}/users/me`, {
+        return this._request(`${this._baseUrl}/users/me`, {
           method: "GET",
           headers: this._headers
         })
-          .then(this._handleError)
     }
 
     setUserInfo(userInfo) {
-        return fetch(`${this._baseUrl}/users/me`, {
+        return this._request(`${this._baseUrl}/users/me`, {
           method: "PATCH",
           headers: this._headers,
           body: JSON.stringify({
@@ -32,30 +36,27 @@ class Api {
             about: userInfo.about
           })
         })
-          .then(this._handleError)
     }
 
     editAvatar(link) {
-        return fetch(`${this._baseUrl}/users/me/avatar`, {
+        return this._request(`${this._baseUrl}/users/me/avatar`, {
           method: "PATCH",
           headers: this._headers,
           body: JSON.stringify({
             avatar: link.avatar
           })
         })
-          .then(this._handleError)
     }
 
     getInitialCards() {
-        return fetch(`${this._baseUrl}/cards`, {
+        return this._request(`${this._baseUrl}/cards`, {
           method: "GET",
           headers: this._headers
         })
-          .then(this._handleError)
     }
 
     addCard(card) {
-        return fetch(`${this._baseUrl}/cards`, {
+        return this._request(`${this._baseUrl}/cards`, {
           method: "POST",
           headers: this._headers,
           body: JSON.stringify({
@@ -63,31 +64,27 @@ class Api {
             link: card.link
           })
         })
-          .then(this._handleError)
     }
 
     deleteCard(id) {
-        return fetch(`${this._baseUrl}/cards/${id}`, {
+        return this._request(`${this._baseUrl}/cards/${id}`, {
           method: "DELETE",
           headers: this._headers
         })
-          .then(this._handleError)
     }
 
     likeCard(id) {
-        return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+        return this._request(`${this._baseUrl}/cards/${id}/likes`, {
           method: "PUT",
           headers: this._headers
         })
-          .then(this._handleError)
     }
 
     dislikeCard(id) {
-        return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+        return this._request(`${this._baseUrl}/cards/${id}/likes`, {
           method: "DELETE",
           headers: this._headers
         })
-          .then(this._handleError)
     }
 
     changeLikeCardStatus(id, isLiked) {

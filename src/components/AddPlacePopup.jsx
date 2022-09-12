@@ -24,38 +24,37 @@ function AddPlacePopup(props) {
 
     return(
         <PopupWithForm
-        name="add-place"
-        title="Новое место"
-        buttonText="Создать"
-        formSection={
-          <><section className="popup__form-section">
-              <input className="popup__input"
-              id="place-name"
-              onChange={handleChangeName}
-              value={name || ''}
-              type="text"
-              name="name"
-              placeholder="Название"
-              required minLength="2"
-              maxLength="30"/>
-              <span className="popup__input-error place-name-error"></span>
+            name="add-place"
+            title="Новое место"
+            buttonText={props.isLoading? 'Создание...' : 'Создать'}
+            isOpen={props.isOpen}
+            onClose={props.onClose}
+            onSubmit={handleAddPlaceSubmit}
+        >
+            <section className="popup__form-section">
+                <input className="popup__input"
+                       id="place-name"
+                       onChange={handleChangeName}
+                       value={name || ''}
+                       type="text"
+                       name="name"
+                       placeholder="Название"
+                       required minLength="2"
+                       maxLength="30"/>
+                <span className="popup__input-error place-name-error"></span>
             </section>
             <section className="popup__form-section">
-              <input className="popup__input"
-              id="place-url"
-              onChange={handleChangeLink}
-              value={link || ''}
-              type="url"
-              name="link"
-              placeholder="Ссылка на картинку"
-              required/>
-              <span className="popup__input-error place-url-error"></span>
-            </section></>
-        }
-        isOpen={props.isOpen}
-        onClose={props.onClose}
-        onSubmit={handleAddPlaceSubmit}
-        />
+                <input className="popup__input"
+                       id="place-url"
+                       onChange={handleChangeLink}
+                       value={link || ''}
+                       type="url"
+                       name="link"
+                       placeholder="Ссылка на картинку"
+                       required/>
+                <span className="popup__input-error place-url-error"></span>
+            </section>
+        </PopupWithForm>        
     )
 }
 

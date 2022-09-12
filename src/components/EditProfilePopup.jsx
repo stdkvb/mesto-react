@@ -17,7 +17,7 @@ function EditProfilePopup(props) {
     React.useEffect(() => {
         setName(currentUser.name);
         setDescription(currentUser.about);
-    }, [currentUser]);
+    }, [currentUser, props.isOpen]);
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -29,43 +29,40 @@ function EditProfilePopup(props) {
 
     return (
         <PopupWithForm
-          name="edit-profile"
-          title="Редактировать профиль"
-          buttonText="Сохранить"
-          formSection={
-            <><section className="popup__form-section">
-                <input
-                className="popup__input profile-name"
-                id="profile-name"
-                value={name || ''}
-                onChange={handleNameChange}
-                type="text"
-                name="name"
-                placeholder="Имя"
-                required
-                minLength="2"
-                maxLength="40" />
+            name="edit-profile"
+            title="Редактировать профиль"
+            buttonText={props.isLoading? 'Сохранение...' : 'Сохранить'}
+            isOpen={props.isOpen}
+            onClose={props.onClose}
+            onSubmit={handleSubmit}
+        >
+           <section className="popup__form-section">
+                <input className="popup__input profile-name"
+                       id="profile-name"
+                       value={name || ''}
+                       onChange={handleNameChange}
+                       type="text"
+                       name="name"
+                       placeholder="Имя"
+                       required
+                       minLength="2"
+                       maxLength="40"/>
                 <span className="popup__input-error profile-name-error"></span>
-              </section>
-              <section className="popup__form-section">
-                <input
-                className="popup__input profile-job"
-                id="profile-job"
-                value={description || ''}
-                onChange={handleDescriptionChange}                
-                type="text"
-                name="about"
-                placeholder="О себе"
-                required
-                minLength="2"
-                maxLength="200" />
+            </section>
+            <section className="popup__form-section">
+                <input className="popup__input profile-job"
+                       id="profile-job"
+                       value={description || ''}
+                       onChange={handleDescriptionChange}                
+                       type="text"
+                       name="about"
+                       placeholder="О себе"
+                       required
+                       minLength="2"
+                       maxLength="200" />
                 <span className="popup__input-error profile-job-error"></span>
-              </section></>
-          }
-          isOpen={props.isOpen}
-          onClose={props.onClose}
-          onSubmit={handleSubmit}
-        />
+            </section>
+        </PopupWithForm>
     )
 };
 
